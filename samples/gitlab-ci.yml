@@ -1,0 +1,75 @@
+stages:
+  - review
+  - preprod
+#  - production
+
+review:
+  stage: review
+  script:
+    # Build project
+    - sh deploy/project-install.sh
+    # Replace config variables, example :
+    #- sh deploy/set-variables.sh config.inc.php APP_ENV OAUTH_ID OAUTH_SECRET
+    # Configure project
+    - sh deploy/project-configure.sh
+    # Configure Let's Encrypt
+    #- sh /home/preview/projets/projector/auto-letsencrypt.sh
+    # Copy to vhost folder
+    - rsync -Aav --delete --exclude app/cache/* * /home/preview/projets/$CI_PROJECT_NAME-$CI_BUILD_REF_NAME
+  environment:
+    name: Preview/$CI_BUILD_REF_NAME
+    url: https://$CI_PROJECT_NAME-$CI_BUILD_REF_NAME.timmxware.fr/
+    on_stop: stop_review
+  when: manual
+  only:
+    - branches
+  except:
+    - master
+
+
+stop_review:
+  stage: review
+  script:
+    - rm -rf /home/preview/projets/$CI_PROJECT_NAME-$CI_BUILD_REF_NAME
+  variables:
+    GIT_STRATEGY: none
+  when: manual
+  environment:
+    name: Preview/$CI_BUILD_REF_NAME
+    action: stop
+  only:
+    - branches
+  except:
+    - master
+
+preprod:
+  stage: preprod
+  script:
+    # Build project
+    - sh deploy/project-install.sh
+    # Replace config variables, example :
+    #- sh deploy/set-variables.sh config.inc.php APP_ENV OAUTH_ID OAUTH_SECRET
+    # Configure project
+    - sh deploy/project-configure.sh
+    # Configure Let's Encrypt
+    #- sh /home/preview/projets/projector/auto-letsencrypt.sh
+    # Copy to vhost folder
+    - rsync -Aav --delete --exclude app/cache/* * /home/preview/projets/$CI_PROJECT_NAME
+  environment:
+    name: Preprod
+    url: https://$CI_PROJECT_NAME.timmxware.fr/
+  when: manual
+  only:
+    - master
+
+
+#production:
+#  stage: production
+#  script:
+#    -
+#  environment:
+#    name: Production
+#    url: https://$CI_PROJECT_NAME.mydomain.com/
+#  when: manual
+#  only:
+#    - master

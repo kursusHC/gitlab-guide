@@ -1,0 +1,13 @@
+{
+    "require": {
+        "twig/twig": "^1.28",
+        "tcdent/php-restclient": "^0.1.5",
+        "filp/whoops": "^2.1"
+        },
+        "autoload": {
+            "classmap": [
+            "app/models",
+            "app/core"
+            ]
+        }
+    }

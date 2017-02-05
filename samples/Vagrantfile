@@ -1,0 +1,84 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+require "./vagrant/vm-settings.rb"
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+Vagrant.configure("2") do |config|
+
+  # Define VM box to use
+  config.vm.box = "bento/debian-8.6"
+  config.vm.box_check_update = false
+
+  # Customize the amount of memory on the VM:
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 1
+    vb.memory = "2048"
+  end
+
+   # mount public_folder as Apache document root with write permissions
+  config.vm.synced_folder "./" , "/var/www/" + PROJECTNAME + "/", id: "vagrant-web", nfs: true
+
+  # mount databases folder in /home/vagrant/databases
+  config.vm.synced_folder "./databases" , "/home/vagrant/databases", id: "phpmyadmin-pma", nfs: true
+
+  # Enable vagrant-hostmanager plugin on host machine
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.manage_guest = false
+
+  # Enable a private network and edit hosts file on host machine
+  config.vm.define PROJECTNAME do |node|
+    node.vm.hostname = PROJECTNAME + ".local"
+    #node.hostmanager.aliases = [ "www." + PROJECTNAME + ".local" ]
+    node.vm.network :private_network, ip: IPADRESS
+    node.vm.network :forwarded_port,  guest: 1080, host: 1082
+  end
+  config.vm.provision :hostmanager
+
+  # VM install script (only first boot)
+  config.vm.provision :shell, :path => './vagrant/vm/vm-init.sh', :args => ["true"]
+
+  # VM configure script (every boot)
+  config.vm.provision :shell, :path => './vagrant/vm/vm-init.sh', :args => ["false"], :run => 'always'
+
+  # Project install script (only first boot)
+  config.vm.provision :shell, :path => './deploy/project-install.sh'
+
+  # Configure variables (see vagrant/project-variables.rb)
+  config.vm.provision :shell, :path => './deploy/set-variables.sh', :args => ["dev", PROJECT_PARAMS_FILE], :run => 'always'
+
+  # Project configure script (every boot)
+  config.vm.provision :shell, :path => './deploy/project-configure.sh', :run => 'always'
+
+  # Boot message :
+  config.vm.post_up_message = "
+    ★★ PROJECT READY ★★
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░█▄
+    ░▄▄▄▄▄▄░░░░░░░░░░░░░▄▄▄▄▄░░█▄
+    ░▀▀▀▀▀███▄░░░░░░░▄███▀▀▀▀░░░█▄
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█
+    ░▄▀▀▀▀▀▄░░░░░░░░░░▄▀▀▀▀▀▄░░░░█
+    █▄████▄░▀▄░░░░░░▄█░▄████▄▀▄░░█▄
+    ████▀▀██░▀▄░░░░▄▀▄██▀█▄▄█░█▄░░█
+    ██▀██████░█░░░░█░████▀█▀██░█░░█
+    ████▀▄▀█▀░█░░░░█░█████▄██▀▄▀░░█
+    ███████▀░█░░░░░░█░█████▀░▄▀░░░█
+    ░▀▄▄▄▄▄▀▀░░░░░░░░▀▀▄▄▄▄▀▀░░░░░█
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█
+    ░░▓▓▓▓▓▓▓░░░░░░░░░░▓▓▓▓▓▓▓░░░░█
+    ░░░▓▓▓▓▓░░░░░░░░░░░░▓▓▓▓▓░░░░░█
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█▀
+    ░░░░░░░░░▄▄███████▄▄░░░░░░░░░█
+    ░░░░░░░░█████████████░░░░░░░█▀
+    ░░░░░░░░░▀█████████▀░░░░░░░█▀
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░█▀
+    ░░░░░░░░░░░░░░░░░░░░░░░░░█▀\n
+    Projet:       http://"+PROJECTNAME+".local\n
+    PHPMyAdmin:   http://"+PROJECTNAME+".local/phpmyadmin\n
+    Adminer:      http://"+PROJECTNAME+".local/adminer\n
+    MailCatcher:  http://"+PROJECTNAME+".local:1080\n
+    Apache log:   http://"+PROJECTNAME+".local/apache\n
+    "
+end

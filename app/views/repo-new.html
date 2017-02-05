@@ -1,0 +1,106 @@
+<div id="form-repo-new" class="form">
+<form class="center">
+<h1>Création d'un projet</h1>
+
+	{% include 'inputs/input.html' with {
+	id: 'projectname',
+	icon: 'book',
+	title: 'Nom du projet',
+	placeholder: 'super-project',
+	description: 'Le nom du projet doit être composé de minuscules et de tirets uniquement. Il ne peut pas être modifié après la création.' ,
+	}%}
+
+	{% include 'inputs/radios.html' with {
+	id: 'projecttype',
+	icon: 'cog',
+	title: 'Type de projet',
+	description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+	value: ['html5','symfony', 'virgin'],
+	type: ['Projet HTML5','Projet Symfony', 'Projet vide'],
+	img: ['html5.svg', 'symfony.svg', 'empty.svg'],
+	}%}
+
+	{% include 'inputs/checkbox.html' with {
+	id: 'ishosted',
+	icon: 'server',
+	description: 'Le projet sera déployé sur le serveur.',
+	value: 'ishosted',
+	title: 'En préprod sur ce serveur',
+	}%}
+
+	{% include 'inputs/checkbox.html' with {
+	id: 'isdb',
+	icon: 'database',
+	description: 'Installe MySQL, PHPMyAdmin et une base de données vide.',
+	value: 'isdb',
+	title: 'Nécessite une base de données',
+	}%}
+
+	<p id="advanced-settings-title" class="important-link">Réglages avancés</p>
+	<section id="advanced-settings" class="is-hidden well" >
+
+	{% include 'inputs/input.html' with {
+	id: 'publicfolder',
+	icon: 'folder-open',
+	value: 'web',
+	title: 'Dossier public',
+	description: 'Le dossier public du site.',
+	}%}
+
+	{% include 'inputs/select.html' with {
+	id: 'phpver',
+	title: 'Version de PHP',
+	icon: 'server',
+	description: 'Choix entre PHP 5.6 et 7. Le serveur ne supporte que PHP 7.x',
+	options	: ['7','5.6']
+	}%}
+
+	{% include 'inputs/input.html' with {
+	id: 'pmaver',
+	icon: 'database',
+	value: '4.6.4',
+	title: 'Version de PHPMyAdmin',
+	description: 'Version de PHPMyAdmin',
+	}%}
+
+	{% include 'inputs/input.html' with {
+	id: 'defaultdb',
+	icon: 'table',
+	disabled: 'disabled',
+	title: 'Nom de la base de données par défaut',
+	description: "La base de données chargée automatiquement au lancement de la VM.",
+	}%}
+
+	{% set customIP = '192.168.' ~ random(198) ~ '.' ~ random(98) %}
+	{% include 'inputs/input.html' with {
+	id: 'customip',
+	icon: 'globe',
+	value: customIP,
+	title: 'Adresse IP locale',
+	description: "L'adresse IP de développement.",
+	}%}
+
+	{% include 'inputs/input.html' with {
+	id: 'timezone',
+	icon: 'clock-o',
+	value: 'Europe/Paris',
+	title: 'Fuseau horaire',
+	description: 'Sélection du fuseau horaire de la machine',
+	}%}
+
+	{% include 'inputs/input.html' with {
+	id: 'password',
+	icon: 'lock',
+	value: 'root',
+	title: 'Mot de passe root',
+	description: 'Mot de passe par default pour les différents services (mysql, PHPMyadmin,...',
+	}%}
+
+	</section>
+
+	{% include 'inputs/buttons.html' with {
+	validlabel: 'Créer le projet',
+	}%}
+
+</form>
+</div>

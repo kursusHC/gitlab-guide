@@ -1,0 +1,9 @@
+<div class="field">
+  <label for="{{id}}"><i class="fa fa-{{icon}}"></i> {{title}} :</label>
+  <p class="description">{{description}}</p>
+  <select id="{{id}}" name="{{id}}">
+    {% for option in options %}
+    <option value="{{ option }}">{{ option }}</option>
+    {% endfor %}
+  </select>
+</div>

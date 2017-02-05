@@ -1,0 +1,14 @@
+<div class="field">
+  <fieldset>
+    <legend><i class="fa fa-{{icon}}"></i> {{title}} :</legend>
+    <p class="description">{{description}}</p>
+    <div class="grid-3 has-gutter-l">
+     {% for i,k in value %}
+     <div class="radio-img ">
+       <input type="radio" name="{{id}}" id="{{value[i]}}" value="{{value[i]}}" {{ i == 0 ? 'checked' : '' }} />
+       <label for="{{value[i]}}"><img class="center" src="{{ ASSET_ROOT }}/img/projects/{{img[i]}}" alt="">{{type[i]}}</label>
+     </div>
+     {% endfor %}
+   </div>
+ </fieldset>
+</div>

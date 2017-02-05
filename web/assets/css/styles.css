@@ -1,0 +1,228 @@
+
+p,fieldset, label {
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  background: url(../img/bg.png) repeat;
+  font-family: 'Lato', sans-serif;
+  color: #515151;
+}
+
+#modal-zone {
+  display: none;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 0;
+}
+
+h1, h2, .h1-like, .h2-like {
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+
+}
+
+.well {
+  background: #f6f6f6;
+  padding: 1rem 2rem;
+  margin-top: 1em;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+
+}
+
+.buttons {
+  overflow: hidden;
+  margin-top: 2rem;
+}
+.btn {
+  width: auto;
+  cursor: pointer;
+  vertical-align: middle;
+  -webkit-border-radius: 0.6rem;
+          border-radius: 0.6rem;
+}
+
+form.btn {
+  margin-left:2rem;
+}
+
+.btn.valid {
+  background: #18c105;
+  color: #fff;
+  margin-left: 2rem;
+}
+
+
+.btn.cancel {
+  background: #eee;
+}
+
+label, .like-label, legend {
+  margin: 0;
+  padding: 0;
+  color: #0095b7;
+  font-size: 1.6rem;
+  font-weight: normal;
+}
+
+.important-link {
+  font-size: 1.4rem;
+  text-decoration: underline;
+  font-style: italic;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+p, .p-like {
+  margin: 0;
+  padding: 0;
+}
+img {
+	display: block;
+}
+
+.form h1, .form h2 {
+/*  padding: 0;
+  padding-top: 2rem;
+  margin: 0;*/
+}
+
+form .field {
+  padding: 1.6rem 0;
+}
+
+.radio-img {
+  padding-top: 1rem;
+}
+.radio-img input {
+  display: none !important;
+
+}
+
+.radio-img label {
+ text-align: center;
+ opacity: 0.1;
+ -webkit-transition:all 0.2s ease;
+ -moz-transition:all 0.2s ease;
+ -ms-transition:all 0.2s ease;
+ -o-transition:all 0.2s ease;
+ transition:all 0.2s ease;
+ display: block;
+ color: #18C105;
+ vertical-align: baseline;
+}
+
+.radio-img img {
+  max-width: 50%;
+  padding-bottom: 1rem;
+
+}
+
+.radio-img input:checked + label {
+  opacity: 1;
+}
+
+
+form .description {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  font-style: italic;
+  padding-bottom: 0.4rem;
+
+
+}
+
+
+.form {
+  /*background: url(../img/bg.png) repeat;*/
+  margin: 2rem 0;
+
+}
+
+form {
+  background: #FFF;
+  padding: 2rem 0;
+  width: 90%;
+}
+
+/***************************/
+/*      Login screen       */
+/***************************/
+
+body.login {
+  background: #000;
+}
+
+
+.login-zone  {
+
+}
+
+.login-zone img {
+  /*margin-top: 5rem;*/
+  display: block;
+  margin: 1rem auto;
+  vertical-align:middle;
+  width: 289px;
+  height: 227px;
+  margin-top: 28vh;
+}
+
+.login .btn {
+  margin: 5rem auto;
+  padding: 1rem 2rem;
+  display: block;
+  background: #000;
+  color: #FFF;
+  border: 1px solid #fff;
+}
+
+
+/***************************/
+/*        List repos       */
+/***************************/
+
+
+
+.list-repos {
+  margin: 3rem auto;
+}
+
+.list-repos table {
+  background: #FFF;
+  margin-top: 3rem;
+}
+
+.list-repos table td {
+  vertical-align: middle;
+}
+
+.title-zone {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn.new-repo {
+  display: inline-block;
+  text-align: center;
+  color: #FFF;
+  font-weight: bold;
+  text-decoration: none;
+  background: #3498db;
+  padding: 1rem 2rem ;
+}
+
+
+#modal-repo-setup {
+  min-height: 400px;
+}

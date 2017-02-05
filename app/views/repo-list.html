@@ -1,0 +1,48 @@
+{% include 'blocks/header.html' %}
+
+
+<div class="container list-repos">
+	<div class="title-zone">
+		<h1>Liste des projets</h1>
+		<a href="/login/logout">Logout</a>
+		<a class="btn new-repo" id="btn-new-project" href="/repos/new"  data-effect="mfp-3d-unfold">
+			<span class="fa fa-plus-circle"></span> Créer un projet
+		</a>
+	</div>
+	<table>
+		<thead><tr>
+			<td>Nom</td>
+			<td>WebURL</td>
+			<td>Git</td>
+			<td>Création</td>
+		</tr>
+	</thead>
+	{% for i,k in repos %}
+	<tr>
+		<td>{{ attribute(repos, i).name }}</td>
+		<td><a href="{{ attribute(repos, i).web_url }}">Lien</a></td>
+		<td>{{ attribute(repos, i).ssh_url_to_repo }}</td>
+		<td>{{ attribute(repos, i).created_at |slice(0, 10)}}</td>
+	</tr>
+	{% endfor %}
+</table>
+</div>
+
+<!-- <div id="login-form" class="w50" style="display:none;"> -->
+
+<!--
+<section class="flex-container">
+  <span class="flex-item-center">
+    <p>I am centered</p>
+  </span>
+</section>
+-->
+
+
+<!-- Link to open the modal -->
+
+<!-- <section class="grid test">
+  <div class="push center three-quarters">.push</div>
+</section> -->
+
+{% include 'blocks/footer.html' %}
