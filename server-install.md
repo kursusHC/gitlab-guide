@@ -37,15 +37,31 @@ index index.html index.htm index.php;
 
 charset utf-8;
 
-location / {
-index index.php; # Not sure if needed
-try_files /$uri /$uri/ /index.php?url=$uri&$args;
+#location / {
+#index index.php; # Not sure if needed
+#try_files /$uri /$uri/ /index.php?url=$uri&$args;
+#}
+
+        location / {
+        try_files $uri $uri/ /index.php;
+        }
+
+## Let's encypt
+location ^~ /.well-known {
+alias /home/preview/letsencrypt/www/.well-known;
 }
 
 ## PHP7
+#location ~ \.php$ {
+#include /etc/nginx/fastcgi.conf;
+#fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+#}
+
 location ~ \.php$ {
-include /etc/nginx/fastcgi.conf;
-fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+   proxy_set_header X-Real-IP  $remote_addr;
+   proxy_set_header X-Forwarded-For $remote_addr;
+   proxy_set_header Host $host;
+   proxy_pass http://127.0.0.1:8080;
 }
 
 ## Exclude htaccess
@@ -54,10 +70,7 @@ deny all;
 }
 
 
-## Let's encypt
-location ^~ /.well-known {
-alias /home/preview/letsencrypt/www/.well-known;
-}
+
 }
 ```
 
