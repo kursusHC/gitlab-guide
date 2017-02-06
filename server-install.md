@@ -20,43 +20,6 @@ su preview -c "mkdir /home/preview/projets"
 su preview -c "mkdir /home/preview/ci"
 ```
 
-## Let's encrypt authorisations
-
-### Instal certbot
-
-```
-# Install debian backports before
-apt-get install certbot -t jessie-backports
-```
-
-
-### Let certbot run as non root
-
-```
-su preview -c "mkdir /home/preview/letsencrypt"
-# This folder is used for LE logs and stuff, it is set in auto-letsencrypt.sh
-su preview -c "mkdir /home/preview/letsencrypt/www"
-# This folder is used for LE verification
-```
-
-puis lancer le certbot une fois pour set up la config LE
-
-```
-certbot certonly --expand -a webroot -w /var/www/letsencrypt -d preview.timmxware.fr -d projector.timmxware.fr -d chat.timmxware.fr
-```
-
-
-### Command for all domains
-
-cf auto-letsencrypt.sh
-
-```
-certbot certonly --expand -a webroot -w /var/www/letsencrypt -d preview.timmxware.fr -d projector.timmxware.fr -d chat.timmxware.fr
-```
-### Command for one domain
-```
-certbot certonly -a webroot -w /home/preview/projets/temporator/web -d temporator.timmxware.fr
-```
 
 
 
@@ -147,6 +110,44 @@ fastcgi_param  REMOTE_PORT        $remote_port;
 fastcgi_param  SERVER_ADDR        $server_addr;
 fastcgi_param  SERVER_PORT        $server_port;
 fastcgi_param  SERVER_NAME        $server_name;
+```
+
+## Let's encrypt authorisations
+
+### Instal certbot
+
+```
+# Install debian backports before
+apt-get install certbot -t jessie-backports
+```
+
+
+### Let certbot run as non root
+
+```
+su preview -c "mkdir /home/preview/letsencrypt"
+# This folder is used for LE logs and stuff, it is set in auto-letsencrypt.sh
+su preview -c "mkdir /home/preview/letsencrypt/www"
+# This folder is used for LE verification
+```
+
+puis lancer le certbot une fois pour set up la config LE
+
+```
+certbot certonly --expand -a webroot -w /var/www/letsencrypt -d preview.timmxware.fr -d projector.timmxware.fr -d chat.timmxware.fr
+```
+
+
+### Command for all domains
+
+cf auto-letsencrypt.sh
+
+```
+certbot certonly --expand -a webroot -w /var/www/letsencrypt -d preview.timmxware.fr -d projector.timmxware.fr -d chat.timmxware.fr
+```
+### Command for one domain
+```
+certbot certonly -a webroot -w /home/preview/projets/temporator/web -d temporator.timmxware.fr
 ```
 
 ## Gitlab runner
