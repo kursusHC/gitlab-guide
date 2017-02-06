@@ -4,6 +4,15 @@
 
 https://about.gitlab.com/downloads/
 
+## Pre config avec URL non https 
+
+nano /etc/gitlab/gitlab.rb
+
+```ruby
+external_url 'http://preview.timmxware.fr'
+gitlab-ctl reconfigure 
+```
+
 ## Web user creation and setup
 ```bash
 adduser preview
