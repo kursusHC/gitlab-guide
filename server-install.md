@@ -150,6 +150,9 @@ puis lancer le certbot une fois pour set up la config LE
 certbot certonly --expand -a webroot -w /var/www/letsencrypt -d preview.timmxware.fr -d projector.timmxware.fr -d chat.timmxware.fr
 ```
 
+## Install Apache en backend 8080 
+
+apt-get install apache2
 
 ### Command for all domains
 
